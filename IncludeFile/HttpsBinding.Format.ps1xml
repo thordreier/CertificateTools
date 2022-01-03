@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Configuration>
+  <ViewDefinitions>
+
+    <View>
+      <Name>HttpsBinding</Name>
+      <ViewSelectedBy>
+        <TypeName>HttpsBinding</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Binding</Label>
+            <Width>41</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>CertificateHash</Label>
+            <Width>41</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Expire</Label>
+            <Width>11</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Application</Label>
+            <Width>19</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Subject</Label>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Binding</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>CertificateHash</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>
+                  $n = $_.Certificate.NotAfter
+                  $s = $n.ToString('d')
+                  # VT100: works in plain PS - does not work in ISE - works in VSCode, but excape characters count!
+                  # https://docs.microsoft.com/en-us/powershell/wmf/5.1/console-improvements
+                  # "PowerShell will ignore certain VT100 formatting escape sequences when calculating table widths" - not i VSCode!
+                  # Bug filed: https://github.com/PowerShell/PowerShellEditorServices/issues/840
+                  
+                  if ($host.UI.SupportsVirtualTerminal -and -not $env:VSCODE_CWD)
+                  {
+                    $d = Get-Date
+                    if ($n -le $d)
+                    {
+                      # Red if expired
+                      "$([char](27))[31;1m$($s)$([char](27))[0m"
+                    }
+                    elseif ($n.AddDays(-60) -le $d)
+                    {
+                      # Yellow if expire soon
+                      "$([char](27))[33;1m$($s)$([char](27))[0m"
+                    }
+                    else
+                    {
+                      # Green if ok
+                      "$([char](27))[32;1m$($s)$([char](27))[0m"
+                    }
+                  }
+                  else
+                  {
+                    $s
+                  }
+                </ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Application</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>
+                  $_.Certificate.Subject
+                </ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    
+  </ViewDefinitions>
+</Configuration>
