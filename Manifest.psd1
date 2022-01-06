@@ -16,7 +16,7 @@ GUID = '4e1122b7-5a39-4643-9502-c7a926c4d3e6'
 Author = 'Thor Dreier'
 
 # Company or vendor of this module
-CompanyName = 'Someone'
+CompanyName = 'Thor Dreier'
 
 # Copyright statement for this module
 Copyright = 'MIT License'
@@ -90,10 +90,10 @@ PrivateData = @{
         # Tags = @()
 
         # A URL to the license for this module.
-        # LicenseUri = ''
+        LicenseUri = 'https://opensource.org/licenses/MIT'
 
         # A URL to the main website for this project.
-        # ProjectUri = ''
+        ProjectUri = 'https://github.com/thordreier/CertificateTools'
 
         # A URL to an icon representing this module.
         # IconUri = ''
@@ -112,7 +112,7 @@ PrivateData = @{
 
     } # End of PSData hashtable
 
-} # End of PrivateData hashtable
+ } # End of PrivateData hashtable
 
 # HelpInfo URI of this module
 # HelpInfoURI = ''
