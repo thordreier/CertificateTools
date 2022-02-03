@@ -34,7 +34,7 @@ function Find-NewestCertificate
               (This certificate can be D568.., if that is already the newest)
 
         .EXAMPLE
-            Find-NewestCertificate -CommonName '*.foobar.tld' -Path Cert:\LocalMachine\My -HasPrivateKey
+            Find-NewestCertificate -CommonName '*.foobar.tld' -Path Cert:\LocalMachine\WebHosting -HasPrivateKey
             - Find the newest certificate with CN=*.foobar.tld that has a private key
 
         .EXAMPLE
@@ -67,7 +67,7 @@ function Find-NewestCertificate
         [Parameter(ParameterSetName = 'commonname'     )]
         [System.String]
         [Alias('Path','CertificateStore','CertificateStoreLocation','CertStore')]
-        $CertStoreLocation = 'Cert:\CurrentUser\My',
+        $CertStoreLocation = 'Cert:\LocalMachine\My',
 
         [Parameter()]
         [System.Management.Automation.SwitchParameter]

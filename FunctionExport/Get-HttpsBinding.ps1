@@ -157,9 +157,9 @@ function Get-HttpsBinding
 
             # Getting bindings as string
             $netshString = netsh http show sslcert
-            $netshString = $netshString[3..($netshString.length-2)]
+            $netshString = $netshString[3..($netshString.length-1)]
 
-            $obj = $null
+            $obj = New-Object -TypeName 'HttpsBinding'
 
             # Loop through all lines
             foreach ($line in $netshString)
@@ -167,7 +167,7 @@ function Get-HttpsBinding
                 if ($line -match "^\s*$") {
                     # Empty line
                 
-                    if ($obj)
+                    if ($obj.CertificateHash)
                     {
                         if ($obj.IpPort)
                         {

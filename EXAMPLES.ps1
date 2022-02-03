@@ -1,12 +1,3 @@
-# CertificateTools
-
-PowerShell functions for making SSL binding changes easier.
-
-## Usage
-
-### Examples
-
-```powershell
 ############################ Find-NewestCertificate ############################
 
 # Find the certificate with thumbprint D568.. from Cert:\LocalMachine\My
@@ -79,28 +70,3 @@ Get-HttpsBinding -Port 44399 | Set-HttpsBinding -CertificateHash '1234fbc46bb663
 # Import foobar.pfx to certificate store (and make private key exportable)
 # and change binding on www.foobar.tld:443 to use that certificate
 Set-HttpsBinding -HostnamePort 'www.foobar.tld:443' -PfxPath 'foobar.pfx' -Exportable -PasswordClear 'Password1!'
-
-```
-
-Examples are also found in [EXAMPLES.ps1](EXAMPLES.ps1).
-
-### Functions
-
-See [FUNCTIONS.md](FUNCTIONS.md) for documentation of functions in this module.
-
-## Install
-
-### Install module from PowerShell Gallery
-
-```powershell
-Install-Module CertificateTools
-```
-
-### Install module from source
-
-```powershell
-git clone https://github.com/thordreier/CertificateTools.git
-cd CertificateTools
-git pull
-.\Build.ps1 -InstallModule
-```
